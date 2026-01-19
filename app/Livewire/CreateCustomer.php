@@ -18,14 +18,9 @@ class CreateCustomer extends Component
     {
         return view('livewire.create-customer');
     }
-
+    
     public function save()
     {
-
-        // dd ($this->all());
-        //trae todos los campos publicos y los asocia con las propiedades
-        //Customer::create($this->all());
-        //asociacion de los campos mas segura
         Customer::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -34,7 +29,8 @@ class CreateCustomer extends Component
             'gender' => $this->gender,
             'employment' => $this->employment
         ]);
-        //sirve para limpiar los campos del formulario
+        
         $this->reset();
+        session()->flash('message', 'Cliente creado correctamente');
     }
 }

@@ -7,35 +7,18 @@ use Livewire\Component;
 
 class Customers extends Component
 {
-    public $customerId;
-    public $customers=[]; 
-
-    public function mount()
-    {
-        $this->customers=Customer::all();
-    }
-    public function getCustomer($id)
-    {
-        $this->customerId = $id; 
-    }
     public function render()
     {
-        return view('livewire.customers');
+        return view('livewire.customers', [
+            'customers' => Customer::all(),
+        ]);
     }
 
-    public function deleteCustomer(){
-        if($customerId){
-            $customer = Customer::find($this->customerId);
-            $customer->delete();
-            $this->customers = Customer::all();
-            session()->flash('message', 'Cliente eliminado correctamente.');
-        }
-        
-    }
+    public function deleteCustomer($id)
+    {
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
 
-    /*public function delete($id){
-        Customer::delete($id);
         session()->flash('message', 'Cliente eliminado correctamente.');
     }
-        */
 }

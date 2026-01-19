@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire;
 
 use Livewire\Component;
@@ -7,11 +6,11 @@ use App\Models\Customer;
 
 class ViewCustomer extends Component
 {
-    public $customer=[];
+    public Customer $customer;
 
     public function mount(Customer $customer)
     {
-        $this->customer=$customer;
+        $this->customer = $customer;
     }
 
     public function render()
@@ -19,3 +18,5 @@ class ViewCustomer extends Component
         return view('livewire.view-customer');
     }
 }
+
+

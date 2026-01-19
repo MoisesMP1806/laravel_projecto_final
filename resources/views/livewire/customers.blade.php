@@ -26,41 +26,16 @@
                     <td>
                         <button wire:navigate href="/customers/{{$customer->id}}" class="btn btn-primary btn-sm">Ver</button>
                         <button wire:navigate href="/customers/update/{{$customer->id}}" class="btn btn-secondary btn-sm">Editar</button>
-                        <button type="button" class="btn btn-danger btn-sm"
-                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                            wire:click="">
+                        <button wire:click="deleteCustomer({{ $customer->id }})" 
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('¿Seguro que deseas eliminar este cliente?')">
                             Eliminar
                         </button>
-
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <!-- Modal de Confirmación -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        ¿Estás seguro de que deseas eliminar a ? Esta acción no se puede deshacer.
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" wire:click="deleteCustomer" data-bs-dismiss="modal">
-                            Eliminar
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-    </div>
     <div>
     @if(session()->has('message'))
         <div class="alert alert-success mt-3">

@@ -38,15 +38,23 @@ class UpdateCustomer extends Component
     }
 
     public function save(){
-        //busca el objeto con el id en la base de datos
-        $customerUpdate = Customer::find($this->customer->id);
-        $customerUpdate->name = $this->name;
-        $customerUpdate->email = $this->email;
-        $customerUpdate->phone = $this->phone;
-        $customerUpdate->password = $this->password;
-        $customerUpdate->gender = $this->gender;
-        $customerUpdate->employment = $this->employment;
-        $customerUpdate->save();
+        $validatedData = $this->validate([
+            'name' => 'required|string|min:3|max:255',
+            'email' => 'required|email|unique:customers,email,'. $this->customer->id,
+            'phone' => 'required|string|min:8|max:15',
+            'password' => 'nullable|string|min:8',
+            'gender' => 'required|in:male,female,other',
+            'employment' => 'required|string|max:100',
+        ]);
+
+        $updateData = [
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'],
+            'gender' => $validatedData['gender'],
+            'employment' => $validatedData['employment'],
+        ];
+        $this->customer->update($updateData);
         session()->flash('message', 'Cliente actualizado correctamente.');
     }
 }

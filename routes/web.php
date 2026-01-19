@@ -21,8 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//ruta para crear un customer 
 Route::get('/customers/create', CreateCustomer::class);
+
+//ruta para ver un customer 
 Route::get('/customers', Customers::class);
+
 //pasa como parametro el customer en la visa al clickar el boton y retorna la vista customer
 Route::get('/customers/{customer}', ViewCustomer::class);
 
